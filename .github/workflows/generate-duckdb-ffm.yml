@@ -36,8 +36,15 @@ jobs:
     - name: Download and Setup jextract
       run: |
         wget ${{ env.JEXTRACT_URL }} -O jextract.tar.gz
-        tar -xzf jextract.tar.gz
-        echo "$(pwd)/jextract-21/bin" >> $GITHUB_PATH # 将 jextract 加入系统环境变量
+        
+        # 1. 创建一个固定的目标目录
+        mkdir -p jextract-dist
+        
+        # 2. 剥离掉压缩包自带的顶层动态目录，直接解压到固定目录下
+        tar -xzf jextract.tar.gz -C jextract-dist --strip-components=1
+        
+        # 3. 将绝对路径安全地注入到 GitHub Actions 的全局 PATH 中
+        echo "$(pwd)/jextract-dist/bin" >> $GITHUB_PATH
 
     - name: Download DuckDB C-API (Header and Lib)
       run: |
