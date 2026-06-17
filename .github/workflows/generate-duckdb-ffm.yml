@@ -42,7 +42,7 @@ jobs:
     - name: Download DuckDB C-API (Header and Lib)
       run: |
         # 下载 Linux x86_64 版本的 DuckDB C-API
-        wget https://github.com/duckdb/duckdb/releases/download/${{ env.DUCKDB_VERSION }}/libduckdb-linux-amd64.zip
+        wget https://github.com/duckdb/duckdb/releases/download/v1.5.3/libduckdb-linux-amd64.zip
         unzip libduckdb-linux-amd64.zip -d duckdb-native
         ls -la duckdb-native # 确认 duckdb.h 和 libduckdb.so 存在
 
